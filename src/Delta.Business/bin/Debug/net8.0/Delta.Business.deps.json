@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Delta.Business/1.0.0": {
+        "runtime": {
+          "Delta.Business.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Delta.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
