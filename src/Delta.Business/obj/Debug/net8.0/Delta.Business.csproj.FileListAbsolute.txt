@@ -9,3 +9,15 @@ D:\Estudos\EduardoPires\MBA\Projeto_DeltaEcom\Delta\src\Delta.Business\obj\Debug
 D:\Estudos\EduardoPires\MBA\Projeto_DeltaEcom\Delta\src\Delta.Business\obj\Debug\net8.0\refint\Delta.Business.dll
 D:\Estudos\EduardoPires\MBA\Projeto_DeltaEcom\Delta\src\Delta.Business\obj\Debug\net8.0\Delta.Business.pdb
 D:\Estudos\EduardoPires\MBA\Projeto_DeltaEcom\Delta\src\Delta.Business\obj\Debug\net8.0\ref\Delta.Business.dll
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\bin\Debug\net8.0\Delta.Business.deps.json
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\bin\Debug\net8.0\Delta.Business.dll
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\bin\Debug\net8.0\Delta.Business.pdb
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.AssemblyInfoInputs.cache
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.AssemblyInfo.cs
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.csproj.CoreCompileInputs.cache
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.sourcelink.json
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.dll
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\refint\Delta.Business.dll
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\Delta.Business.pdb
+C:\Denis_Cruz\Desenvolvimento\delta-ecommerce\src\Delta.Business\obj\Debug\net8.0\ref\Delta.Business.dll

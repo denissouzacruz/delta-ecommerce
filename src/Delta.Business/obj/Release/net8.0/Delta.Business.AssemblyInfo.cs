@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Delta.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+daede825fdb898476bb4fe5cd07f226c461b45da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Delta.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Delta.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

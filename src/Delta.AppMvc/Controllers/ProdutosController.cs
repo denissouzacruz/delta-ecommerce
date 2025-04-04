@@ -2,9 +2,11 @@
 using Delta.AppMvc.ViewModel;
 using Delta.Business.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Delta.AppMvc.Controllers
 {
@@ -13,17 +15,20 @@ namespace Delta.AppMvc.Controllers
     [Authorize]
     public class ProdutosController : Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IProdutoRepository _produtoRepository;
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IMapper _mapper;
 
         public ProdutosController(IProdutoRepository produtoRepository,
                                     ICategoriaRepository categoriaRepository,
-                                    IMapper mapper)
+                                    IMapper mapper,
+                                    IWebHostEnvironment webHostEnvironment)
         {
             _produtoRepository = produtoRepository;
             _categoriaRepository = categoriaRepository;
             _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [AllowAnonymous]
@@ -68,12 +73,22 @@ namespace Delta.AppMvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                var nomeImagem = $"{Guid.NewGuid()}-{Path.GetFileName(produtoViewModel.UploadImagem.FileName)}";
+
+                if (!SalvarImagem(produtoViewModel.UploadImagem, nomeImagem))
+                {
+                    produtoViewModel.Categorias = await CarregarCategorias();
+                    return View(produtoViewModel);
+                }
+
                 var produto = _mapper.Map<Produto>(produtoViewModel);
                 produto.VendedorId = new Guid("791adda4-683f-44ab-970c-e02872851873");
+                produto.Imagem = nomeImagem;
                 await _produtoRepository.Adicionar(produto);
 
                 return RedirectToAction(nameof(Index));
             }
+            produtoViewModel.Categorias = await CarregarCategorias();
             return View(produtoViewModel);
         }
 
@@ -160,6 +175,42 @@ namespace Delta.AppMvc.Controllers
         {
             var retorno = _produtoRepository.ObterPorId(id);
             return retorno != null;
+        }
+
+        private bool SalvarImagem(IFormFile arquivo, string nomeImagem)
+        {
+            var diretorio = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+            var retornoSalvarImagem = false;
+            if (arquivo != null && arquivo.Length > 0)
+            {
+                if (!Directory.Exists(diretorio))
+                    Directory.CreateDirectory(diretorio);
+
+                try
+                {
+                    using (var stream = new FileStream(diretorio, FileMode.Create))
+                    {
+                        arquivo.CopyToAsync(stream);
+                        retornoSalvarImagem = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("UploadImagem", $"Erro ao salvar imagem: {ex.Message}");
+                }
+
+            }
+            else
+            {
+                ModelState.AddModelError("UploadImagem", "A imagem selecionada é inválida!");
+            }
+            return retornoSalvarImagem;
+        }
+
+        private async Task<IEnumerable<CategoriaViewModel>> CarregarCategorias()
+        {
+            var categorias = await _categoriaRepository.ObterTodos();
+            return _mapper.Map<IEnumerable<CategoriaViewModel>>(categorias);
         }
     }
 }

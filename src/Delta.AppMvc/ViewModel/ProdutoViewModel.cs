@@ -40,6 +40,9 @@ namespace Delta.AppMvc.ViewModel
 
         public Guid? VendedorId { get; set; }
         public string? Imagem { get; set; }
+
+        [Required(ErrorMessage = "Preencha o campo {0}.")]
+        [DisplayName("Imagem do produto")]
         public IFormFile UploadImagem { get; set; }
         public CategoriaViewModel? Categoria { get; set; }
         public IEnumerable<CategoriaViewModel>? Categorias { get; set; }
