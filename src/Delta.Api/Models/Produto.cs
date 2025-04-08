@@ -38,9 +38,9 @@ namespace Delta.Api.Models
         public Guid? VendedorId { get; set; }
         public string? Imagem { get; set; }
 
-        [Required(ErrorMessage = "Preencha o campo {0}.")]
-        [DisplayName("Imagem do produto")]
-        public IFormFile UploadImagem { get; set; }
+        //[Required(ErrorMessage = "Preencha o campo {0}.")]
+        //[DisplayName("Imagem do produto")]
+        //public IFormFile UploadImagem { get; set; }
         public Categoria Categoria { get; set; }
         public IEnumerable<Categoria>? Categorias { get; set; }
         public Vendedor? Vendedor { get; set; }

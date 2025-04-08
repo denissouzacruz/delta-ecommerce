@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Delta.AppMvc.Data
+namespace Delta.Infra.Context
 {
     public class ApplicationDbContext : IdentityDbContext
     {

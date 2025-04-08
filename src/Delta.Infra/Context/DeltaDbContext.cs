@@ -1,5 +1,6 @@
 ﻿using Delta.Business.Models;
 using Delta.Infra.Config;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Delta.Infra.Context
 {
-    public class DeltaDbContext: DbContext
+    public class DeltaDbContext: IdentityDbContext
     {
         public DeltaDbContext(DbContextOptions<DeltaDbContext> options)
             : base(options)

@@ -122,6 +122,7 @@ namespace Delta.AppMvc.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("UploadImagem");
             if (ModelState.IsValid)
             {
                 try
