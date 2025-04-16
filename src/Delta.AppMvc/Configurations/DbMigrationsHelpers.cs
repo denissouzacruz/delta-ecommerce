@@ -94,7 +94,7 @@ namespace Delta.AppMvc.Configurations
                     Descricao = "Livro A Cabana / Literatura Estrangeira",
                     CategoriaId = categoriaPapelaria,
                     VendedorId = idUsuario,
-                    Imagem = "JHGFGHGFDDFGH",
+                    Imagem = "5be38508-8799-4625-8c68-77100b36c7fc-Acabana.jpg",
                     Valor = 30.55m,
                     QuantidadeEstoque = 245
                 },
@@ -105,7 +105,7 @@ namespace Delta.AppMvc.Configurations
                     Descricao = "Teclado Logi, sem bluetooth",
                     CategoriaId = categoriaInformatica,
                     VendedorId = idUsuario,
-                    Imagem = "JHGFGHGFDDFGH",
+                    Imagem = "6afb183a-744b-4f99-b394-6180f9d3b1dd-teclado_logi.png",
                     Valor = 122.70m,
                     QuantidadeEstoque = 198
                 }

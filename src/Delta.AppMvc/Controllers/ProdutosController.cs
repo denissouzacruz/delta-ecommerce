@@ -75,8 +75,7 @@ namespace Delta.AppMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var nomeImagem = $"{Guid.NewGuid()}-{Path.GetFileName(produtoViewModel.UploadImagem.FileName)}";
-
+                var nomeImagem = ObterNomeImagemUpload(produtoViewModel);
                 if (!await SalvarImagem(produtoViewModel.UploadImagem, nomeImagem))
                 {
                     produtoViewModel.Categorias = await CarregarCategorias();
@@ -122,13 +121,31 @@ namespace Delta.AppMvc.Controllers
                 return NotFound();
             }
 
-            ModelState.Remove("UploadImagem");
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var produtoBase = await _produtoRepository.ObterPorId(id);
+                    produtoViewModel.Imagem = ObterNomeImagemUpload(produtoViewModel);
+
+                    if (!await SalvarImagem(produtoViewModel.UploadImagem, produtoViewModel.Imagem))
+                    {
+                        produtoViewModel.Categorias = await CarregarCategorias();
+                        return View(produtoViewModel);
+                    }
+                    ExcluirImagem(produtoBase.Imagem);
+
                     var produto = _mapper.Map<Produto>(produtoViewModel);
-                    await _produtoRepository.Atualizar(produto);
+
+                    produtoBase.Nome = produtoViewModel.Nome;
+                    produtoBase.Descricao = produtoViewModel.Descricao;
+                    produtoBase.Valor= produtoViewModel.Valor;
+                    produtoBase.CategoriaId = produtoViewModel.CategoriaId;
+                    produtoBase.QuantidadeEstoque = produtoViewModel.QuantidadeEstoque;
+                    produtoBase.Imagem = produtoViewModel.Imagem;
+                    await _produtoRepository.Atualizar(produtoBase);
+
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -183,22 +200,23 @@ namespace Delta.AppMvc.Controllers
 
         private async Task<bool> SalvarImagem(IFormFile arquivo, string nomeImagem)
         {
-            //access denied
-            //var diretorio = Path.Combine(_webHostEnvironment.WebRootPath, "images", "upload");
-            var diretorio = Path.Combine(Path.GetTempPath(), nomeImagem);
             var retornoSalvarImagem = true;
             if (arquivo != null && arquivo.Length > 0)
             {
                 try
                 {
+                    var caminhoUpload = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "upload");
 
-                    if (arquivo.Length > 0)
+                    if (!Directory.Exists(caminhoUpload))
+                        Directory.CreateDirectory(caminhoUpload);
+
+                    var diretorio = Path.Combine(caminhoUpload, nomeImagem);
+
+                    using (var stream = new FileStream(diretorio, FileMode.Create))
                     {
-                        using (var stream = System.IO.File.Create(diretorio))
-                        {
-                           await arquivo.CopyToAsync(stream);
-                        }
+                        await arquivo.CopyToAsync(stream);
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -219,6 +237,20 @@ namespace Delta.AppMvc.Controllers
         {
             var categorias = await _categoriaRepository.ObterTodos();
             return _mapper.Map<IEnumerable<CategoriaViewModel>>(categorias);
+        }
+
+        private string ObterNomeImagemUpload(ProdutoViewModel produtoViewModel)
+        {
+            return $"{Guid.NewGuid()}-{Path.GetFileName(produtoViewModel.UploadImagem.FileName)}";
+        }
+
+        private void ExcluirImagem(string nomeImagem)
+        {
+            var caminhoImagem = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "upload", nomeImagem);
+            if (System.IO.File.Exists(caminhoImagem))
+            {
+                System.IO.File.Delete(caminhoImagem);
+            }
         }
     }
 }
