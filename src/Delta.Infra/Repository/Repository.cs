@@ -50,8 +50,11 @@ namespace Delta.Infra.Repository
 
         public async Task Remover(Guid id)
         {
-            var objeto = new T() {Id = id };
-            _deltaDb.Entry(objeto).State = EntityState.Deleted;
+            T objeto = await _dbSet.FindAsync(id);
+            if (objeto == null)
+                return;
+
+            _dbSet.Remove(objeto);
             await SaveChanges();
         }
 

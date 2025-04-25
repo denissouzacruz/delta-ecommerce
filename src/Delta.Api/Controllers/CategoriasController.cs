@@ -57,11 +57,14 @@ namespace Delta.Api.Controllers
         [HttpPut("{id:Guid}")]
         public async Task<IActionResult> PutCategoria(Guid id, Models.Categoria categoria)
         {
-            if (id != categoria.Id || _categoriaRepository.ObterPorId(id) == null)
-            {
+            if (id != categoria.Id)
+                return BadRequest();
+
+            var categoriaBd = await _categoriaRepository.ObterPorId(id);
+            if (categoriaBd == null)
                 return NotFound();
-            }
-            var categoriaBd = _mapper.Map<Business.Models.Categoria>(categoria);
+
+            _mapper.Map(categoria, categoriaBd);
             await _categoriaRepository.Atualizar(categoriaBd);
 
             return NoContent();

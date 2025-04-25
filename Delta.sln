@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delta.Business", "src\Delta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delta.Infra", "src\Delta.Infra\Delta.Infra.csproj", "{A0C44381-7EB4-49A5-B00C-4F7273267CC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delta.Api", "src\Delta.Api\Delta.Api.csproj", "{D1222036-8E58-4784-ACC4-64931CD993C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delta.Api", "src\Delta.Api\Delta.Api.csproj", "{D1222036-8E58-4784-ACC4-64931CD993C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

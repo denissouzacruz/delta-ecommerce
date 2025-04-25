@@ -1,10 +1,10 @@
+using Delta.AppMvc;
 using Delta.AppMvc.Configurations;
 using Delta.AppMvc.Data;
 using Delta.Business.Models;
-using Delta.Infra.Context;
 using Delta.Infra.Repository;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +41,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
