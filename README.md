@@ -72,6 +72,7 @@ A estrutura do projeto é organizada da seguinte forma:
 
 2. **Configuração do Banco de Dados:**
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
+   - No arquivo `appsettings.json`, para API, defina o local onde as imagens serão salvas. Por padrão, aponta para C:\temp.
    - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
 
 3. **Executar a Aplicação MVC:**
