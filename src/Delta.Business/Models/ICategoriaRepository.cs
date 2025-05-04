@@ -9,6 +9,6 @@ namespace Delta.Business.Models
 {
     public interface ICategoriaRepository: IRepository<Categoria>
     {
-        //Métodos específicos
+        Task<Categoria> ObterCategoriaProduto(Guid id);
     }
 }

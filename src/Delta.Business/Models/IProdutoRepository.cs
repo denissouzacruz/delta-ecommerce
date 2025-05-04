@@ -14,5 +14,7 @@ namespace Delta.Business.Models
         Task<Produto> ObterProdutoCategoria(Guid id);
         Task<IEnumerable<Produto>> ObterProdutoCategoriaPorVendedor(Guid idVendedor);
 
+        Task<IEnumerable<Produto>> ObterProdutoPorCategoria(Guid idCategoria);
+
     }
 }

@@ -16,6 +16,9 @@ namespace Delta.Infra.Config
             builder.ToTable("Vendedores")
                 .HasKey("Id");
 
+            builder.Property(p => p.Nome).HasColumnType("varchar(100)").IsRequired();
+            builder.Property(p => p.Email).HasColumnType("varchar(100)").IsRequired();
+
             builder
                 .HasMany(v => v.Produtos)
                 .WithOne(p => p.Vendedor);

@@ -22,6 +22,7 @@ namespace Delta.Infra.Repository
         {
             return await _dbSet.AsNoTracking()
                     .Include(x => x.Categoria)
+                    .Include(x=> x.Vendedor)
                     .ToListAsync();
         }
 
@@ -41,6 +42,15 @@ namespace Delta.Infra.Repository
                         .Include(x => x.Categoria)
                         .Include(v => v.Vendedor)
                         .Where(x => x.VendedorId == idVendedor).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Produto>> ObterProdutoPorCategoria(Guid idCategoria)
+        {
+            return await _dbSet
+                        .AsNoTracking()
+                        .Include(x => x.Categoria)
+                        .Include(v => v.Vendedor)
+                        .Where(x => x.CategoriaId == idCategoria).ToListAsync();
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Delta.Infra.Repository
 {
-    public class VendedorRepository : Repository<Vendedor>
+    public class VendedorRepository : Repository<Vendedor>, IVendedorRepository
     {
         public VendedorRepository(DeltaDbContext deltaDbContext) : base(deltaDbContext)
         {

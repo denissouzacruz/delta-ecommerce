@@ -19,16 +19,19 @@ namespace Delta.AppMvc.Controllers
         private readonly IProdutoRepository _produtoRepository;
         private readonly ICategoriaRepository _categoriaRepository;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
         public ProdutosController(IProdutoRepository produtoRepository,
                                     ICategoriaRepository categoriaRepository,
                                     IMapper mapper,
-                                    IWebHostEnvironment webHostEnvironment)
+                                    IWebHostEnvironment webHostEnvironment,
+                                    IConfiguration configuration)
         {
             _produtoRepository = produtoRepository;
             _categoriaRepository = categoriaRepository;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
+            _configuration = configuration;
         }
 
         [AllowAnonymous]
@@ -205,7 +208,8 @@ namespace Delta.AppMvc.Controllers
             {
                 try
                 {
-                    var caminhoUpload = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "upload");
+                    string caminhoBase = _configuration["Parametros:DiretorioBaseImagemProduto"];
+                    var caminhoUpload = Path.Combine(caminhoBase, "wwwroot", "images", "upload");
 
                     if (!Directory.Exists(caminhoUpload))
                         Directory.CreateDirectory(caminhoUpload);
@@ -246,7 +250,8 @@ namespace Delta.AppMvc.Controllers
 
         private void ExcluirImagem(string nomeImagem)
         {
-            var caminhoImagem = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "upload", nomeImagem);
+            string caminhoBase = _configuration["Parametros:DiretorioBaseImagemProduto"];
+            var caminhoImagem = Path.Combine(caminhoBase, "wwwroot", "images", "upload", nomeImagem);
             if (System.IO.File.Exists(caminhoImagem))
             {
                 System.IO.File.Delete(caminhoImagem);

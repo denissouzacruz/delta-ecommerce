@@ -3,16 +3,15 @@ using System.ComponentModel;
 
 namespace Delta.Api.Models
 {
-    public class Categoria
+    public class CategoriaListViewModel
     {
-        public Categoria()
+        public CategoriaListViewModel()
         {
             Id = Guid.NewGuid();
         }
 
         [Key]
         public Guid Id { get; set; }
-
         [Required(ErrorMessage = "Preencha o campo {0}.")]
         [StringLength(100, ErrorMessage = "O campo {0} precisa ter no mínimo {2} caracteres e no máximo {1}", MinimumLength = 2)]
         public string Nome { get; set; }

@@ -2,14 +2,16 @@
 
 namespace Delta.Api.Models
 {
-    public class Vendedor
+    public class VendedorViewModel
     {
-        public Vendedor()
+        public VendedorViewModel()
         {
             Id = Guid.NewGuid();
         }
 
         [Key]
         public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -7,9 +7,11 @@ namespace Delta.Api.Configurations
     {
         public AutoMapperProfile()
         {
-            CreateMap<Models.Categoria, Business.Models.Categoria>().ReverseMap();
-            CreateMap<Models.Produto, Business.Models.Produto>().ReverseMap();
-            //CreateMap<Vendedor, VendedorViewModel>().ReverseMap();
+            CreateMap<Models.CategoriaViewModel, Business.Models.Categoria>().ReverseMap();
+            CreateMap<Models.CategoriaListViewModel, Business.Models.Categoria>().ReverseMap();
+            CreateMap<Models.ProdutoViewModel, Business.Models.Produto>().ReverseMap();
+            CreateMap<Models.ProdutoListViewModel, Business.Models.Produto>().ReverseMap();
+            CreateMap<Models.VendedorViewModel, Business.Models.Vendedor>().ReverseMap();
 
         }
     }
