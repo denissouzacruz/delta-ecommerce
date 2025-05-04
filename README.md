@@ -42,6 +42,7 @@ A estrutura do projeto é organizada da seguinte forma:
 - src/
   - Delta.AppMvc/ - Projeto MVC
   - Delta.Api/ - API RESTful
+  - Delta.Business / Serviços para acesso à camada de dados
   - Delta.Infra/ - Modelos de Dados e Configuração do EF Core
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
@@ -77,9 +78,10 @@ A estrutura do projeto é organizada da seguinte forma:
    - `cd src/Delta.AppMvc/`
    - `dotnet run`
    - Acesse a aplicação em: https://localhost:7050/
+   - Para visualizar produtos carregados inicialmente, utilize o usuário: teste@teste.com e senha: Teste@123
 
 4. **Executar a API:**
-   - `cd src/Blog.Api/`
+   - `cd src/Delta.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: https://localhost:7260/swagger
 
