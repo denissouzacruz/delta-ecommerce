@@ -29,14 +29,14 @@ namespace Delta.AppMvc.ViewModel
         public Guid CategoriaId { get; set; }
 
         [Required(ErrorMessage = "Preencha o campo {0}.")]
-        [Range(0.01, Int32.MaxValue, ErrorMessage = "O valor precisa ser maior que 0")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "O valor precisa ser maior que 0")]
         [DisplayName("Preço")]
-        public decimal Valor { get; set; }
+        public int Valor { get; set; }
 
         [Required(ErrorMessage = "Preencha o campo {0}.")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "O valor precisa ser maior que 0")]
         [DisplayName("Qtd em Estoque")]
-        public int? QuantidadeEstoque { get; set; }
-
+        public int QuantidadeEstoque { get; set; }
 
         public Guid? VendedorId { get; set; }
         public string? Imagem { get; set; }

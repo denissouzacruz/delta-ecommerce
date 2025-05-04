@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 
 namespace Delta.AppMvc.Controllers
 {
@@ -37,9 +38,8 @@ namespace Delta.AppMvc.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            //Recuperar o Id do Vendedor
-            //_produtoRepository.ObterProdutoCategoriaPorVendedor(idVendedor)
-            var produtoCategoria = await _produtoRepository.ObterProdutoCategoria();
+            Guid idVendedor = User.FindFirstValue(ClaimTypes.NameIdentifier) == null ? Guid.NewGuid() : Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var produtoCategoria = await _produtoRepository.ObterProdutoCategoriaPorVendedor(idVendedor);
             var produtoViewModel = _mapper.Map<IEnumerable<ProdutoViewModel>>(produtoCategoria);
             return View(produtoViewModel);
         }
@@ -86,8 +86,8 @@ namespace Delta.AppMvc.Controllers
                 }
 
                 var produto = _mapper.Map<Produto>(produtoViewModel);
-                //Recuperar o Id do usuário logado
-                produto.VendedorId = new Guid("25CC4478-5BE5-48D2-B986-52B2D61E9650");
+                Guid idVendedor = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                produto.VendedorId = idVendedor;
                 produto.Imagem = nomeImagem;
                 await _produtoRepository.Adicionar(produto);
 
@@ -120,9 +120,7 @@ namespace Delta.AppMvc.Controllers
         public async Task<IActionResult> Edit(Guid id, [FromForm] ProdutoViewModel produtoViewModel)
         {
             if (id != produtoViewModel.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -147,19 +145,13 @@ namespace Delta.AppMvc.Controllers
                     produtoBase.QuantidadeEstoque = produtoViewModel.QuantidadeEstoque;
                     produtoBase.Imagem = produtoViewModel.Imagem;
                     await _produtoRepository.Atualizar(produtoBase);
-
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProdutoExists(produtoViewModel.Id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -173,9 +165,7 @@ namespace Delta.AppMvc.Controllers
 
             var produto = await _produtoRepository.ObterProdutoCategoria(id);
             if (produto == null)
-            {
                 return NotFound();
-            }
 
             var produtoViewModel = _mapper.Map<ProdutoViewModel>(produto);
             return View(produtoViewModel);
@@ -208,7 +198,7 @@ namespace Delta.AppMvc.Controllers
             {
                 try
                 {
-                    string caminhoBase = _configuration["Parametros:DiretorioBaseImagemProduto"];
+                    string caminhoBase = Directory.GetCurrentDirectory();
                     var caminhoUpload = Path.Combine(caminhoBase, "wwwroot", "images", "upload");
 
                     if (!Directory.Exists(caminhoUpload))
@@ -250,7 +240,8 @@ namespace Delta.AppMvc.Controllers
 
         private void ExcluirImagem(string nomeImagem)
         {
-            string caminhoBase = _configuration["Parametros:DiretorioBaseImagemProduto"];
+            //string caminhoBase = _configuration["Parametros:DiretorioBaseImagemProduto"];
+            string caminhoBase = Directory.GetCurrentDirectory();
             var caminhoImagem = Path.Combine(caminhoBase, "wwwroot", "images", "upload", nomeImagem);
             if (System.IO.File.Exists(caminhoImagem))
             {

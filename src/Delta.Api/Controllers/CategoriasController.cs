@@ -122,7 +122,7 @@ namespace Delta.Api.Controllers
             if (categoriaBd == null)
                 return NotFound();
 
-            if (!categoriaBd.Produtos.Any())
+            if (categoriaBd.Produtos.Any())
                 return Problem("Não é possível excluir uma categoria com produtos associados");
 
             await _categoriaRepository.Remover(id);

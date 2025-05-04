@@ -141,17 +141,17 @@ namespace Delta.AppMvc.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var categoria = await _categoriaRepository.ObterCategoriaProduto(id);
-            if (categoria != null)
-            {
-                await _categoriaRepository.Remover(categoria.Id);
-            }
+            if (categoria == null)
+                return NotFound();
 
-            if (!categoria.Produtos.Any())
+            if (categoria.Produtos.Any())
             {
-                ModelState.AddModelError("*", "Não é possível excluir uma categoria com produtos associados");
+                ModelState.AddModelError("", "Não é possível excluir uma categoria com produtos associados");
                 var categoriaViewModel = _mapper.Map<CategoriaViewModel>(categoria);
                 return View(categoriaViewModel);
             }
+
+            await _categoriaRepository.Remover(categoria.Id);
 
             return RedirectToAction(nameof(Index));
         }
