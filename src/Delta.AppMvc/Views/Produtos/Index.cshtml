@@ -1,68 +1,55 @@
 ﻿@model IEnumerable<Delta.AppMvc.ViewModel.ProdutoViewModel>
-@using System.IO;
-
 @{
-    ViewData["Title"] = "Lista de Produtos";
+    ViewData["Title"] = "Meus Produtos";
 }
-
-<h3>Gestão de Produtos</h3>
+<h3>@ViewData["Title"]</h3>
 <br />
-
 <p>
     <a class="btn btn-light" asp-action="Create"><span class="fa fa-plus"></span>Novo</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuantidadeEstoque)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Valor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuantidadeEstoque)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
-                </td>
-                <td>
-                    <img src="~/images/upload/@item.Imagem" alt="@item.Imagem" style="width: 70px; height: 100px;" />
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><span class="fa fa-pencil"></span></a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><span class="fa fa-search"></span></a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><span class="fa fa-trash"></span></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<style>
+    .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+    }
+
+    .card-text {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .card-footer .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .product-card img {
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="row row-cols-2 row-cols-md-5 g-3">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm product-card">
+                <img src="~/images/upload/@item.Imagem" class="card-img-top" alt="@item.Nome" />
+
+                <div class="card-body p-2">
+                    <h5 class="card-title">@item.Nome</h5>
+                    <p class="card-text text-muted">@item.Descricao</p>
+                    <p class="card-text text-success mb-1">R$ @item.Valor.ToString("N2")</p>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between p-2">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="fa fa-search"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
